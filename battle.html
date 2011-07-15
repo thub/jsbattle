@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        <!--
+        div.scroll {
+            height: 200px;
+            width: 620px;
+            overflow: auto;
+            border: 1px solid #666;
+            background-color: #ccc;
+            padding: 8px;
+            font-size: 8px;
+        }
+        -->
+    </style>
+    <script src="/jquery-latest.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        console.log('href is ' + location.href);
+
+        function sendMessage(form) {
+            data = form.inputbox.value;
+//            data = data.replace(/(\r\n|\n|\r)/gm,"");
+            console.log("sending message "+data)
+            socket.emit('message', data);
+        }
+
+        function sendCode(form) {
+            data = form.inputbox.value;
+            data = data.replace(/(\r\n|\n|\r)/gm,"");
+            console.log("sending code "+data)
+            socket.emit('code', data);
+        }
+
+        function executeCode(form) {
+            data = form.inputbox.value;
+            //data = data.replace(/(\r\n|\n|\r)/gm,"");
+            console.log("executing code code "+data)
+            eval(data);
+        }
+
+        var socket = io.connect(location.href);
+
+        socket.on('message', function(data) {
+            console.log('got message ' + data);
+            $('#log').append('<p> Message :' + data + '</p>');
+        });
+
+        socket.on('code-message', function(data) {
+            $('#log').append('<p> <pre>' + data + '</pre></p>');
+        });
+
+
+        socket.on('code', function(data) {
+            eval(data);
+        });
+
+    </script>
+</head>
+<body>
+
+<div>
+    <form name="myform" action="" method="GET">Enter something to send to target(s): <BR>
+        <textarea type="text" name="inputbox" rows="10" cols="80" value=""></textarea>
+        <P>
+            <input type="button" name="button" value="send message" onClick="sendMessage(this.form)">
+            <input type="button" name="button" value="execute code in connected browsers" onClick="sendCode(this.form)">
+            <input type="button" name="button" value="execute code in this browser" onClick="executeCode(this.form)">
+
+        </P>
+    </form>
+</div>
+<div id="log" class="scroll">
+
+</div>
+
+</body>
+</html>
