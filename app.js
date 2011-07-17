@@ -58,17 +58,7 @@ server = http.createServer(function(request, response) {
     });
 });
 
-server.listen(80);
-
-if(process.env.VMC_APP_PORT) {
-    io.set('transports', [
-        //'websocket',
-        'flashsocket',
-        'htmlfile',
-        'xhr-polling',
-        'jsonp-polling'
-    ]);
-}
+server.listen(4444);
 
 var io = require('socket.io').listen(server);
 
