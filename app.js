@@ -68,7 +68,7 @@ var io = require('socket.io').listen(server);
 console.log("created listener")
 
 
-var delay  =5;
+var delay = 30;
 
 var buffer = [];
 io.sockets.on('connection', function(socket){
