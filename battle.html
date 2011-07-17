@@ -61,8 +61,16 @@
 </head>
 <body>
 
+<p style="font-size: 8">
+    Enter a message or javascript command in window below. </br>
+    Command you send to other browsers will be executed in the browsers with a 30 second delay. </br>
+    Commands issued by other browsers will be forewarned in the gray window below.</br>
+    In the case where you are alone you may want to add two windows to see the results </br>
+    You can always reload this window when things get difficult.</br>
+    Code sits at : <a href="https://github.com/thub/jsbattle">https://github.com/thub/jsbattle</a>
+</p>
 <div>
-    <form name="myform" action="" method="GET">Enter something to send to target(s): <BR>
+    <form name="myform" action="" method="GET">
         <textarea type="text" name="inputbox" rows="10" cols="80" value=""></textarea>
         <P>
             <input type="button" name="button" value="send message" onClick="sendMessage(this.form)">
@@ -75,6 +83,8 @@
 <div id="log" class="scroll">
 
 </div>
+
+
 
 </body>
 </html>
